@@ -1,15 +1,33 @@
 #--------------------------------------------------------
 # The CMakeLists.txt for:                       uWaypointMaker
-# Author(s):                              
+# Author(s):
 #--------------------------------------------------------
 
-FILE(GLOB SRC *.cpp)
+SET(SRC
+    waypoint_helper.cpp
+)
 
-ADD_EXECUTABLE(uWaypointMaker ${SRC})
+#=============================================================================
+# FINDING MOOSGeodesy' HEADERS AND LIBRARIES...
+#=============================================================================
+find_package(MOOSGeodesy)
+include_directories(${MOOSGeodesy_INCLUDE_DIRS})
+link_directories(${MOOSGeodesy_LIBRARY_PATH})
 
-TARGET_LINK_LIBRARIES(uWaypointMaker
-   ${MOOS_LIBRARIES}
-   mbutil
-   m
-   pthread)
+message("+++++++++++++++++++++++++++++++++++++++++")
+message("MOOSGeodesy_INCLUDE_DIRS:" ${MOOSGeodesy_INCLUDE_DIRS})
+message("MOOSGeodesy_LIB_PATH:"     ${MOOSGeodesy_LIBRARY_PATH})
+message("+++++++++++++++++++++++++++++++++++++++++")
 
+
+INCLUDE_DIRECTORIES(${MOOS_INCLUDE_DIRS} ${MOOSGeodesy_INCLUDE_DIRS})
+
+ADD_EXECUTABLE(waypoint_helper ${SRC})
+
+TARGET_LINK_LIBRARIES(waypoint_helper
+    ${MOOS_LIBRARIES}
+    m
+    pthread
+    proj
+    MOOSGeodesy
+)
