@@ -25,8 +25,8 @@ Options:
 def process_origin(point, output):
     if 'coordinates' in point.keys():
         coords = point['coordinates'].strip().split(',')
-        print('OriginLat = ' + coords[1].strip())
-        print('OriginLon = ' + coords[0].strip())
+        print('LatOrigin = ' + coords[1].strip())
+        print('LongOrigin = ' + coords[0].strip())
         output['origin'] = [coords[1].strip(), coords[0].strip()]
     else:
         print('No coordinates in origin!')
