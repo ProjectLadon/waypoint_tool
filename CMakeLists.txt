@@ -31,3 +31,13 @@ TARGET_LINK_LIBRARIES(waypoint_helper
     proj
     MOOSGeodesy
 )
+
+find_program(CTAGS ctags)
+if (CTAGS)
+ FIND_FILE(MAKE_CTAGS make_ctags.sh ../..)
+ ADD_CUSTOM_TARGET(waypoint_ctags ALL
+     ${MAKE_CTAGS} .
+     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+     DEPENDS waypoint_helper
+ )
+endif(CTAGS)
